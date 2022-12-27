@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet.wms.js"></script>
+        <script src="data/PAE_2.js"></script>
+        <script src="data/Empreses_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:26, minZoom:14
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+            map.setMaxBounds(map.getBounds());
+        }
+        map.createPane('pane_MapaSatllit_0');
+        map.getPane('pane_MapaSatllit_0').style.zIndex = 400;
+        var layer_MapaSatllit_0 = L.WMS.layer("http://geoserveis.icgc.cat/servei/catalunya/orto-territorial/wms", "ortofoto_color_provisional", {
+            pane: 'pane_MapaSatllit_0',
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+            attribution: '',
+        });
+        map.addLayer(layer_MapaSatllit_0);
+        map.createPane('pane_MapaBase_1');
+        map.getPane('pane_MapaBase_1').style.zIndex = 401;
+        var layer_MapaBase_1 = L.tileLayer('https://tilemaps.icgc.cat/mapfactory/wmts/topo_suau/CAT3857/{z}/{x}/{y}.png', {
+            pane: 'pane_MapaBase_1',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 14,
+            maxZoom: 26,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_MapaBase_1;
+        map.addLayer(layer_MapaBase_1);
+        function pop_PAE_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['qc_id'] !== null ? autolinker.link(feature.properties['qc_id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nom'] !== null ? autolinker.link(feature.properties['nom'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['municipi'] !== null ? autolinker.link(feature.properties['municipi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['comarca'] !== null ? autolinker.link(feature.properties['comarca'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['provincia'] !== null ? autolinker.link(feature.properties['provincia'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AREA_PAE'] !== null ? autolinker.link(feature.properties['AREA_PAE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CAMBRA'] !== null ? autolinker.link(feature.properties['CAMBRA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PAE_2_0() {
+            return {
+                pane: 'pane_PAE_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(29,63,94,0.3)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PAE_2');
+        map.getPane('pane_PAE_2').style.zIndex = 402;
+        map.getPane('pane_PAE_2').style['mix-blend-mode'] = 'normal';
+        var layer_PAE_2 = new L.geoJson(json_PAE_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PAE_2',
+            layerName: 'layer_PAE_2',
+            pane: 'pane_PAE_2',
+            onEachFeature: pop_PAE_2,
+            style: style_PAE_2_0,
+        });
+        bounds_group.addLayer(layer_PAE_2);
+        map.addLayer(layer_PAE_2);
+        function pop_Empreses_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Empresa</strong><br />' + (feature.properties['Empresa'] !== null ? autolinker.link(feature.properties['Empresa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nom Comercial</th>\
+                        <td>' + (feature.properties['Nom Comerc'] !== null ? autolinker.link(feature.properties['Nom Comerc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Telefon</th>\
+                        <td>' + (feature.properties['Telefon'] !== null ? autolinker.link(feature.properties['Telefon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">E-mail</th>\
+                        <td>' + (feature.properties['E-mail'] !== null ? autolinker.link(feature.properties['E-mail'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Web</th>\
+                        <td>' + (feature.properties['Web'] !== null ? autolinker.link(feature.properties['Web'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ADREÇA</th>\
+                        <td>' + (feature.properties['ADREÇA'] !== null ? autolinker.link(feature.properties['ADREÇA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Municipi</th>\
+                        <td>' + (feature.properties['Municipi'] !== null ? autolinker.link(feature.properties['Municipi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Empreses_3_0() {
+            return {
+                pane: 'pane_Empreses_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(51,160,44,0.5)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Empreses_3');
+        map.getPane('pane_Empreses_3').style.zIndex = 403;
+        map.getPane('pane_Empreses_3').style['mix-blend-mode'] = 'normal';
+        var layer_Empreses_3 = new L.geoJson(json_Empreses_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Empreses_3',
+            layerName: 'layer_Empreses_3',
+            pane: 'pane_Empreses_3',
+            onEachFeature: pop_Empreses_3,
+            style: style_Empreses_3_0,
+        });
+        bounds_group.addLayer(layer_Empreses_3);
+        map.addLayer(layer_Empreses_3);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Empreses_3.png" /> Empreses': layer_Empreses_3,'<img src="legend/PAE_2.png" /> PAE': layer_PAE_2,"Mapa Base": layer_MapaBase_1,"Mapa Satèl·lit": layer_MapaSatllit_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        resetLabels([layer_PAE_2]);
+        map.on("zoomend", function(){
+            resetLabels([layer_PAE_2]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_PAE_2]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_PAE_2]);
+        });
+        </script>
+    </body>
+</html>
