@@ -116,8 +116,8 @@
                 weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(29,63,94,0.3)',
-                interactive: true,
+                fillColor: 'rgba(29,63,94,0.7)',
+                interactive: false,
             }
         }
         map.createPane('pane_PAE_2');
@@ -125,7 +125,7 @@
         map.getPane('pane_PAE_2').style['mix-blend-mode'] = 'normal';
         var layer_PAE_2 = new L.geoJson(json_PAE_2, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_PAE_2',
             layerName: 'layer_PAE_2',
             pane: 'pane_PAE_2',
@@ -140,7 +140,7 @@
                         <td colspan="2"><strong>Empresa</strong><br />' + (feature.properties['Empresa'] !== null ? autolinker.link(feature.properties['Empresa'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Nom Comercial</th>\
+                        <th scope="row">Nom Comerc</th>\
                         <td>' + (feature.properties['Nom Comerc'] !== null ? autolinker.link(feature.properties['Nom Comerc'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -178,7 +178,7 @@
                 weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(51,160,44,1.0)',
+                fillColor: 'rgba(51,160,44,0.5)',
                 interactive: true,
             }
         }
