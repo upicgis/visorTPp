@@ -116,7 +116,7 @@
                 weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(29,63,94,0.3)',
+                fillColor: 'rgba(24,63,98,1.0)',
                 interactive: false,
             }
         }
@@ -141,7 +141,7 @@
                     </tr>\
                     <tr>\
                         <th scope="row">Nom Comercial</th>\
-                        <td>' + (feature.properties['Nom Comerc'] !== null ? autolinker.link(feature.properties['Nom Comerc'].toLocaleString()) : '') + '</td>\
+                        <td>' + (feature.properties['Nom Comercial'] !== null ? autolinker.link(feature.properties['Nom Comercial'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Telefon</th>\
@@ -178,7 +178,7 @@
                 weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(51,160,44,0.5)',
+                fillColor: 'rgba(51,160,44,1.0)',
                 interactive: true,
             }
         }
@@ -199,16 +199,6 @@
         var baseMaps = {};
         L.control.layers(baseMaps,{'<img src="legend/Empreses_3.png" /> Empreses': layer_Empreses_3,'<img src="legend/PAE_2.png" /> PAE': layer_PAE_2,"Mapa Base": layer_MapaBase_1,"Mapa Satèl·lit": layer_MapaSatllit_0,},{collapsed:false}).addTo(map);
         setBounds();
-        resetLabels([layer_PAE_2]);
-        map.on("zoomend", function(){
-            resetLabels([layer_PAE_2]);
-        });
-        map.on("layeradd", function(){
-            resetLabels([layer_PAE_2]);
-        });
-        map.on("layerremove", function(){
-            resetLabels([layer_PAE_2]);
-        });
         </script>
     </body>
 </html>
