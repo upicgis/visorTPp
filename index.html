@@ -105,8 +105,10 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_PAE_2_0() {
-            return {
+        function style_PAE_2_0(feature) {
+            switch(String(feature.properties['nom'])) {
+                case 'BUVISA':
+                    return {
                 pane: 'pane_PAE_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -116,8 +118,55 @@
                 weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(24,63,98,0.3)',
+                fillColor: 'rgba(24,63,130,0.3)',
                 interactive: false,
+            }
+                    break;
+                case 'Feliu Vila':
+                    return {
+                pane: 'pane_PAE_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(172,214,22,0.3)',
+                interactive: false,
+            }
+                    break;
+                case 'La Suïssa I':
+                    return {
+                pane: 'pane_PAE_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(179,91,33,0.3',
+                interactive: false,
+            }
+                    break;
+                case 'Montseny':
+                    return {
+                pane: 'pane_PAE_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(31,120,180,0.3)',
+                interactive: false,
+            }
+                    break;
             }
         }
         map.createPane('pane_PAE_2');
@@ -197,7 +246,7 @@
         bounds_group.addLayer(layer_Empreses_3);
         map.addLayer(layer_Empreses_3);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/Empreses_3.png" /> Empreses': layer_Empreses_3,'<img src="legend/PAE_2.png" /> PAE': layer_PAE_2,"Mapa Base": layer_MapaBase_1,"Mapa Satèl·lit": layer_MapaSatllit_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/Empreses_3.png" /> Empreses': layer_Empreses_3,'PAE<br /><table><tr><td style="text-align: center;"><img src="legend/PAE_2_BUVISA0.png" /></td><td>BUVISA</td></tr><tr><td style="text-align: center;"><img src="legend/PAE_2_FeliuVila1.png" /></td><td>Feliu Vila</td></tr><tr><td style="text-align: center;"><img src="legend/PAE_2_LaSuïssaI2.png" /></td><td>La Suïssa I</td></tr><tr><td style="text-align: center;"><img src="legend/PAE_2_Montseny3.png" /></td><td>Montseny</td></tr></table>': layer_PAE_2,"Mapa Base": layer_MapaBase_1,"Mapa Satèl·lit": layer_MapaSatllit_0,},{collapsed:false}).addTo(map);
         setBounds();
         </script>
     </body>
